@@ -12,10 +12,15 @@ wall_thickness = 0.4;
 hub_d = 20;
 hub_od = hub_d + wall_thickness * 2;
 propeller_d = 40;
+
 blade_height = 8;
-blade_thickness = 0.8;
+blade_thickness = 0.4;
 blade_angle = 20;
-blade_direction = -1;           // -1 for clockwise, 1 for counter-clockwisew
+blade_direction = -1;            // -1 for counter-clockwise, 1 for clockwise
+
+winglets = true;
+winglet_thickness = blade_thickness;
+winglet_length = 2;
 
 tab_internal_angle = 10;
 tab_thickness = 0.4;
@@ -69,22 +74,34 @@ module tab ()
 
 module blade ()
 {
-    function sq (x) = x * x;
-    function height2twist (h) = (
-        (sq (h / blade_height)) * blade_angle * blade_direction
-    );
+    function twist (t) = (pow (t, 2) + 0 * t) * blade_angle * blade_direction;
 
     blade_length = propeller_d / 2;
     base_shape = rectangle_profile ([blade_length, blade_thickness]);
+    blade_transforms = [
+        for (t = [0 : 0.01 : 1.0])
+        rotation ([0, 0, twist (t)]) *
+        translation ([blade_length / 2, 0, (1 - t) * blade_height])
+    ];
 
-    transforms = [
-        for (h = [0 : 0.2 : blade_height])
-        rotation ([0, 0, height2twist (h)]) *
-        translation ([blade_length / 2, 0, h])
+    winglet_shape = rectangle_profile ([winglet_thickness, winglet_length]);
+    winglet_transforms = [
+        for (t = blade_transforms)
+        t *
+        translation ([
+                -winglet_thickness / 2 + blade_length / 2,
+                winglet_length / 2 * blade_direction,
+                0
+            ])
     ];
 
     difference () {
-        sweep (base_shape, transforms);
+        union () {
+            sweep (base_shape, blade_transforms);
+
+            if (winglets)
+            sweep (winglet_shape, winglet_transforms);
+        }
 
         translate ([0, 0, -epsilon])
         cylinder (d = hub_d - epsilon * 2, h = blade_height + epsilon * 2);
