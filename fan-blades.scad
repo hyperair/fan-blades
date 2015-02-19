@@ -16,7 +16,7 @@ propeller_d = 40;
 blade_height = 8;
 blade_thickness = 0.4;
 blade_angle = 20;
-blade_direction = -1;            // -1 for counter-clockwise, 1 for clockwise
+blade_direction = 1;            // -1 for counter-clockwise, 1 for clockwise
 
 winglets = true;
 winglet_thickness = blade_thickness;
