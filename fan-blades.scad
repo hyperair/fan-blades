@@ -4,6 +4,7 @@ use <MCAD/shapes/cylinder.scad>
 use <scad-utils/transformations.scad>
 use <scad-utils/shapes.scad>
 use <MCAD/general/sweep.scad>
+use <MCAD/shapes/2Dshapes.scad>
 
 
 number_of_blades = 12;
@@ -14,7 +15,11 @@ propeller_d = 40;
 blade_height = 8;
 blade_thickness = 0.8;
 blade_angle = 20;
-blade_direction = -1;           // -1 for clockwise, 1 for counter-clockwise
+blade_direction = -1;           // -1 for clockwise, 1 for counter-clockwisew
+
+tab_internal_angle = 10;
+tab_thickness = 0.4;
+number_of_tabs = 5;
 
 $fs = 0.4;
 $fa = 1;
@@ -42,6 +47,24 @@ module hub ()
          cylinder (d = hub_od - wall_thickness * 4,
              h = blade_height * 2);
     }
+
+    translate ([0, 0, blade_height])
+    mcad_rotate_multiply (number_of_tabs)
+    tab ();
+}
+
+module tab ()
+{
+    linear_extrude (height = tab_thickness) {
+        intersection () {
+            difference () {
+                circle (d = hub_od);
+                circle (d = hub_od - wall_thickness * 4);
+            }
+
+            pieSlice (hub_od, -tab_internal_angle / 2, tab_internal_angle / 2);
+        }
+    }
 }
 
 module blade ()
@@ -64,6 +87,6 @@ module blade ()
         sweep (base_shape, transforms);
 
         translate ([0, 0, -epsilon])
-        cylinder (d = hub_d, h = blade_height + epsilon * 2);
+        cylinder (d = hub_d - epsilon * 2, h = blade_height + epsilon * 2);
     }
 }
