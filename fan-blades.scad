@@ -104,6 +104,6 @@ module blade ()
         }
 
         translate ([0, 0, -epsilon])
-        cylinder (d = hub_d - epsilon * 2, h = blade_height + epsilon * 2);
+        cylinder (d = hub_od - epsilon * 2, h = blade_height + epsilon * 2);
     }
 }
