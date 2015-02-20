@@ -86,15 +86,23 @@ module blade ()
 
     winglet_shape = rectangle_profile ([winglet_thickness, winglet_length]);
     winglet_transforms = [
-        for (t = blade_transforms)
-        t *
+        for (i = [0 : len (blade_transforms) - 1])
+        let (
+            transform = blade_transforms[i],
+            scale_ = max (0.01,
+                (len (blade_transforms) - i) / len (blade_transforms)
+            )
+        )
+        transform *
         translation ([
                 -winglet_thickness / 2 + blade_length / 2,
-                winglet_length / 2 * blade_direction,
+                scale_ * winglet_length / 2 * blade_direction,
                 0
-            ])
+            ]) *
+        scaling ([1, scale_, 1])
     ];
 
+    render ()
     difference () {
         union () {
             sweep (base_shape, blade_transforms);
