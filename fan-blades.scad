@@ -25,6 +25,7 @@ winglet_length = 2;
 tab_internal_angle = 10;
 tab_thickness = 0.4;
 number_of_tabs = 5;
+tab_width = 0.2;
 
 $fs = 0.4;
 $fa = 1;
@@ -64,7 +65,7 @@ module tab ()
         intersection () {
             difference () {
                 circle (d = hub_od);
-                circle (d = hub_od - wall_thickness * 4);
+                circle (d = hub_od - (tab_width + wall_thickness) * 2);
             }
 
             pieSlice (hub_od, -tab_internal_angle / 2, tab_internal_angle / 2);
