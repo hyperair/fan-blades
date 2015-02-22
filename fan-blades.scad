@@ -8,15 +8,15 @@ use <MCAD/shapes/2Dshapes.scad>
 
 
 number_of_blades = 12;
-wall_thickness = 0.4;
-hub_d = 20;
+wall_thickness = 0.8;
+hub_d = 22.6;
 hub_od = hub_d + wall_thickness * 2;
-propeller_d = 40;
+propeller_d = 36.5;
 
-blade_height = 8;
-blade_thickness = 0.4;
+blade_height = 7.15;
+blade_thickness = 0.8;
 blade_angle = 20;
-blade_direction = 1;            // -1 for counter-clockwise, 1 for clockwise
+blade_direction = -1;            // -1 for counter-clockwise, 1 for clockwise
 
 winglets = true;
 winglet_thickness = blade_thickness;
