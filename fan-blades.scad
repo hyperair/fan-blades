@@ -89,7 +89,8 @@ module blade ()
     );
 
     blade_length = propeller_d / 2;
-    base_shape = rectangle_profile ([blade_length, blade_thickness]);
+    base_shape = rectangle_profile ([blade_length,
+            tan (blade_pitch) * blade_thickness]);
     blade_transforms = [
         for (t = [0 : 0.01 : 1.0])
         rotation ([0, 0, twist (t)]) *
