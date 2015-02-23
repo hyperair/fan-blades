@@ -79,7 +79,7 @@ module blade ()
     lead_r = (propeller_d - hub_od) / 2;
     blade_angle = tan (90 - blade_pitch) * blade_height / (PI * 2 * lead_r) * 360;
 
-    function parabolic_twist (t) = ((pow (t, 2) + 0 * t) * blade_angle *
+    function parabolic_twist (t) = ((pow (t, 2) + 0.5 * t) * blade_angle *
         blade_direction);
     function linear_twist (t) = (t * blade_angle * blade_direction);
 
