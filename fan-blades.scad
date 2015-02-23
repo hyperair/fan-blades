@@ -24,7 +24,7 @@ winglet_thickness = blade_thickness;
 winglet_length = 2;
 
 tab_internal_angle = 10;
-tab_thickness = 0.4;
+tab_thickness = 0.2;
 number_of_tabs = 5;
 tab_width = 0.2;
 
