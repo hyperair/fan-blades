@@ -15,8 +15,9 @@ propeller_d = 36.5;
 
 blade_height = 7.15;
 blade_thickness = 0.8;
-blade_angle = 20;
-blade_direction = -1;            // -1 for counter-clockwise, 1 for clockwise
+blade_pitch = 70;               // average, because it's parabolic
+blade_direction = -1;           // -1 for counter-clockwise, 1 for clockwise
+blade_shape = "parabolic";      // "parabolic" or "linear"
 
 winglets = true;
 winglet_thickness = blade_thickness;
@@ -75,7 +76,17 @@ module tab ()
 
 module blade ()
 {
-    function twist (t) = (pow (t, 2) + 0 * t) * blade_angle * blade_direction;
+    lead_r = (propeller_d - hub_od) / 2;
+    blade_angle = tan (90 - blade_pitch) * blade_height / (PI * 2 * lead_r) * 360;
+
+    function parabolic_twist (t) = ((pow (t, 2) + 0 * t) * blade_angle *
+        blade_direction);
+    function linear_twist (t) = (t * blade_angle * blade_direction);
+
+    function twist (t) = (
+        (blade_shape == "parabolic") ? parabolic_twist (t) :
+        linear_twist (t)
+    );
 
     blade_length = propeller_d / 2;
     base_shape = rectangle_profile ([blade_length, blade_thickness]);
