@@ -7,19 +7,19 @@ use <MCAD/general/sweep.scad>
 use <MCAD/shapes/2Dshapes.scad>
 
 
-number_of_blades = 12;
+number_of_blades = 6;
 wall_thickness = 0.8;
 hub_d = 22.6;
 hub_od = hub_d + wall_thickness * 2;
-propeller_d = 36.5;
+propeller_d = 37;
 
 blade_height = 7.15;
 blade_thickness = 0.8;
-blade_pitch = 70;               // average, because it's parabolic
+blade_pitch = 60;               // average, because it's parabolic
 blade_direction = -1;           // -1 for counter-clockwise, 1 for clockwise
 blade_shape = "parabolic";      // "parabolic" or "linear"
 
-winglets = true;
+winglets = false;
 winglet_thickness = blade_thickness;
 winglet_length = 2;
 
