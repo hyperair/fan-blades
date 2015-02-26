@@ -23,6 +23,9 @@ winglets = false;
 winglet_thickness = blade_thickness;
 winglet_length = 2;
 
+shroud = true;
+shroud_thickness = 0.4;
+
 tab_internal_angle = 10;
 tab_thickness = 0.2;
 number_of_tabs = 5;
@@ -37,6 +40,9 @@ hub ();
 mcad_rotate_multiply (number_of_blades, axis = Z)
 translate ([0- epsilon, 0, 0])
 blade ();
+
+if (shroud)
+shroud ();
 
 module hub ()
 {
@@ -127,4 +133,11 @@ module blade ()
         translate ([0, 0, -epsilon])
         cylinder (d = hub_od - epsilon * 2, h = blade_height + epsilon * 2);
     }
+}
+
+module shroud ()
+{
+    rotate_extrude ()
+    translate ([-shroud_thickness / 2 + propeller_d / 2, 0])
+    square ([shroud_thickness, blade_height]);
 }
