@@ -22,7 +22,7 @@ blade_shape = "parabolic";      // "parabolic" or "linear"
 winglets = false;
 winglet_thickness = 1;
 winglet_length = 2;
-winglet_direction = 1;          // -1 for underside of blade, 1 for upper
+winglet_direction = 1;          // 1 for underside of blade, -1 for upper
 
 shroud = true;
 shroud_thickness = 0.4;
