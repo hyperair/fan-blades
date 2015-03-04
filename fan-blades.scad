@@ -20,8 +20,9 @@ blade_direction = -1;           // -1 for counter-clockwise, 1 for clockwise
 blade_shape = "parabolic";      // "parabolic" or "linear"
 
 winglets = false;
-winglet_thickness = blade_thickness;
+winglet_thickness = 1;
 winglet_length = 2;
+winglet_direction = 1;          // -1 for underside of blade, 1 for upper
 
 shroud = true;
 shroud_thickness = 0.4;
@@ -115,7 +116,8 @@ module blade ()
         transform *
         translation ([
                 -winglet_thickness / 2 + blade_length / 2,
-                scale_ * winglet_length / 2 * blade_direction,
+                (scale_ * winglet_length / 2 * winglet_direction *
+                    blade_direction),
                 0
             ]) *
         scaling ([1, scale_, 1])
