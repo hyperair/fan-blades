@@ -99,7 +99,7 @@ module blade ()
     base_shape = rectangle_profile ([blade_length,
             tan (blade_pitch) * blade_thickness]);
     blade_transforms = [
-        for (t = [0 : 0.01 : 1.0])
+        for (t = [0 : 0.01 : 1.005])
         rotation ([0, 0, twist (t)]) *
         translation ([blade_length / 2, 0, (1 - t) * blade_height])
     ];
