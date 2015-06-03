@@ -7,6 +7,9 @@ Introduction
 This is a customizable, 3d-printable set of fan blades that can be attached onto
 broken DC brushless fan hubs.
 
+Pre-rendered STLs and images can be found on
+[thingiverse](http://www.thingiverse.com/thing:689564).
+
 
 Instructions
 -------------
